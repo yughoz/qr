@@ -35,7 +35,7 @@ use it in your resource
 you can render the QR code in any component that accept HTML using the QR Facade:
 
 ```php
-Qr::render(data:'dataOrUrl')
+\LaraZeus\Qr\Facades\Qr::render(data:'dataOrUrl')
 ```
 
 and it's accept these options:
@@ -61,7 +61,7 @@ PopoverEntry::make('name')
     ->offset([0, 10])
     ->popOverMaxWidth('none')
     ->icon('heroicon-o-chevron-right')
-    ->content(Qr::render(data:'dataOrUrl')),
+    ->content(\LaraZeus\Qr\Facades\Qr::render(data:'dataOrUrl')),
 ```
 
 ### Usage with any action
@@ -71,9 +71,9 @@ to use the QR code as an action in anywhere you want:
 ```php
 Action::make('qr-action')
     ->fillForm(fn(Model $record) => [
-        'qr-options' => Qr::getDefaultOptions(),// or $record->qr-options
+        'qr-options' => \LaraZeus\Qr\Facades\Qr::getDefaultOptions(),// or $record->qr-options
         'qr-data' => 'https://',// or $record->url
     ])
-    ->form(Qr::getFormSchema('qr-data', 'qr-options'))
+    ->form(\LaraZeus\Qr\Facades\Qr::getFormSchema('qr-data', 'qr-options'))
     ->action(fn($data) => dd($data)),
 ```
