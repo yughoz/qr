@@ -31,7 +31,7 @@ class ColorManager
             try {
                 $rgbColor = Rgb::fromString($getColor);
             } catch (\Exception) {
-                $rgbColor = Rgb::fromString(Qr::getDefaultOptions()[$optionKey]);
+                $rgbColor = Rgba::fromString(Qr::getDefaultOptions()[$optionKey]);
             }
             $getColorArray = static::formatColor($rgbColor);
         }
