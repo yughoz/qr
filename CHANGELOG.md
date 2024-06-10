@@ -2,6 +2,20 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.12 - 2024-06-10
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/lara-zeus/qr/pull/24
+* Update ColorManager.php by @schrempfra in https://github.com/lara-zeus/qr/pull/26
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.1.0 by @dependabot in https://github.com/lara-zeus/qr/pull/25
+
+### New Contributors
+
+* @schrempfra made their first contribution in https://github.com/lara-zeus/qr/pull/26
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.11...1.1.12
+
 ## 1.1.11 - 2024-03-05
 
 ### What's Changed
