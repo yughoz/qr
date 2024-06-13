@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.13 - 2024-06-13
+
+### What's Changed
+
+* support png type to render qr in tables by @atmonshi in https://github.com/lara-zeus/qr/pull/27
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.12...1.1.13
+
 ## 1.1.12 - 2024-06-10
 
 ### What's Changed
