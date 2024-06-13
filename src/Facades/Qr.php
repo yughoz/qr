@@ -25,6 +25,7 @@ class Qr extends Facade
     {
         return [
             'size' => '300',
+            'type' => 'svg',
             'margin' => '1',
             'color' => 'rgba(74, 74, 74, 1)',
             'back_color' => 'rgba(252, 252, 252, 1)',
@@ -258,7 +259,9 @@ class Qr extends Facade
 
         return new HtmlString(
             // @phpstan-ignore-next-line
-            $maker->format('svg')->generate((filled($data) ? $data : 'https://'))->toHtml()
+            $maker->format(optional($options)['type'] ?? 'svg')
+                ->generate((filled($data) ? $data : 'https://'))
+                ->toHtml()
         );
     }
 
