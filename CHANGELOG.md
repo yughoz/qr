@@ -2,6 +2,14 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.14 - 2024-06-26
+
+### What's Changed
+
+* fix set state in modal by @atmonshi in https://github.com/lara-zeus/qr/pull/28
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.13...1.1.14
+
 ## 1.1.13 - 2024-06-13
 
 ### What's Changed
