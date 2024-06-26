@@ -18,7 +18,7 @@ class Qr extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return 'helen';
+        return 'qr';
     }
 
     public static function getDefaultOptions(): array
@@ -50,7 +50,7 @@ class Qr extends Facade
         return [
             TextInput::make($statePath)
                 ->live(onBlur: true)
-                ->formatStateUsing(fn () => $defaultUrl)
+                ->formatStateUsing(fn ($state) => $state ?? $defaultUrl)
                 ->visible($showUrl),
 
             Grid::make()
