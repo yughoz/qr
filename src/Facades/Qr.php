@@ -199,7 +199,7 @@ class Qr extends Facade
     // @internal
     public static function output(?string $data = null, ?array $options = null): HtmlString
     {
-        $maker = new Generator();
+        $maker = new Generator;
 
         $options = $options ?? Qr::getDefaultOptions();
 
