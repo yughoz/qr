@@ -20,8 +20,8 @@ Qr Code Input to generate Qr Code with designing options for filamentPHP
 
 ## Screenshots
 
-![](https://larazeus.com/images/screenshots/qr/form-1.png)
-![](https://larazeus.com/images/screenshots/qr/form-2.png)
+![](https://larazeus.com/images/screenshots/qr/form-1.webp)
+![](https://larazeus.com/images/screenshots/qr/form-2.webp)
 
 ## More Details
 **✨ to learn more about Qr, please visit:**

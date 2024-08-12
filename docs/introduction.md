@@ -27,9 +27,9 @@ weight: 1
 
 ## Screenshots
 
-![](https://larazeus.com/images/screenshots/qr/form-1.png)
+![](https://larazeus.com/images/screenshots/qr/form-1.webp)
 
-![](https://larazeus.com/images/screenshots/qr/form-2.png)
+![](https://larazeus.com/images/screenshots/qr/form-2.webp)
 
 ## Support
 
