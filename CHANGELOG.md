@@ -2,6 +2,18 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.15 - 2024-06-28
+
+### What's Changed
+
+* Docs: Update installation and database migrations by @cgiupponi in https://github.com/lara-zeus/qr/pull/30
+
+### New Contributors
+
+* @cgiupponi made their first contribution in https://github.com/lara-zeus/qr/pull/30
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.14...1.1.15
+
 ## 1.1.14 - 2024-06-26
 
 ### What's Changed
