@@ -28,7 +28,7 @@ If you want to store the personalization, another column is required; in the exa
 
 ## Cast
 
-The personalizations are stored as string but the component will use it as array so you need to tell to your model to cast it as array.
+The personalization's are stored as string but the component will use it as array so you need to tell to your model to cast it as array.
 
 ```php
 class QrCode extends Model
