@@ -3,7 +3,9 @@
 namespace LaraZeus\Qr\Facades;
 
 use Filament\Forms\Components\ColorPicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -25,7 +27,7 @@ class Qr extends Facade
     {
         return [
             'size' => '300',
-            'type' => 'svg',
+            'type' => 'png',
             'margin' => '1',
             'color' => 'rgba(74, 74, 74, 1)',
             'back_color' => 'rgba(252, 252, 252, 1)',
@@ -61,6 +63,8 @@ class Qr extends Facade
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->statePath($optionsStatePath)
                         ->schema([
+                            Hidden::make('type')->default('png'),
+
                             TextInput::make('size')
                                 ->live()
                                 ->default(300)
@@ -179,6 +183,12 @@ class Qr extends Facade
                                 ->columnSpan(['sm' => 2])
                                 ->columns(['sm' => 2])
                                 ->visible(fn (Get $get) => $get('hasEyeColor')),
+
+                            FileUpload::make('logo')
+                                ->live()
+                                ->imageEditor()
+                                ->columnSpanFull()
+                                ->image(),
                         ]),
 
                     Placeholder::make('preview')
@@ -199,7 +209,7 @@ class Qr extends Facade
     // @internal
     public static function output(?string $data = null, ?array $options = null): HtmlString
     {
-        $maker = new Generator();
+        $maker = new Generator;
 
         $options = $options ?? Qr::getDefaultOptions();
 
@@ -253,13 +263,18 @@ class Qr extends Facade
             $maker = $maker->eye($options['eye_style']);
         }
 
-        /*if ($options['logo'] !== null) {
-            $maker = $maker->merge('/public/images/logo-5-110px-instagram.png', .4,false);
-        }*/
+        if (optional($options)['logo']) {
+            reset($options['logo']);
+            $logo = current($options['logo']);
+
+            if (filled($logo->getPathName())) {
+                $maker = $maker->merge($logo->getPathName(), .4, true);
+            }
+        }
 
         return new HtmlString(
             // @phpstan-ignore-next-line
-            $maker->format(optional($options)['type'] ?? 'svg')
+            $maker->format(optional($options)['type'] ?? 'png')
                 ->generate((filled($data) ? $data : 'https://'))
                 ->toHtml()
         );
