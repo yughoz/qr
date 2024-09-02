@@ -2,6 +2,15 @@
 
 All notable changes to `Qr` will be documented in this file
 
+## 1.1.16 - 2024-09-02
+
+### What's Changed
+
+* Bump dependabot/fetch-metadata from 2.1.0 to 2.2.0 by @dependabot in https://github.com/lara-zeus/qr/pull/32
+* Add logo to QR code by @atmonshi in https://github.com/lara-zeus/qr/pull/34
+
+**Full Changelog**: https://github.com/lara-zeus/qr/compare/1.1.15...1.1.16
+
 ## 1.1.15 - 2024-06-28
 
 ### What's Changed
