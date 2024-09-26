@@ -15,6 +15,7 @@ use Filament\Forms\Get;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\HtmlString;
 use SimpleSoftwareIO\QrCode\Generator;
+use Illuminate\Http\UploadedFile;
 
 class Qr extends Facade
 {
@@ -266,9 +267,23 @@ class Qr extends Facade
         if (optional($options)['logo']) {
             reset($options['logo']);
             $logo = current($options['logo']);
+            
 
-            if (filled($logo->getPathName())) {
+            if ($logo instanceof \Illuminate\Http\UploadedFile && filled($logo->getPathName())) {
                 $maker = $maker->merge($logo->getPathName(), .4, true);
+            } else {
+                $filePath = storage_path('app/public/' . $logo);
+
+                if (file_exists($filePath)) {
+                    $logo = new UploadedFile(
+                        $filePath, 
+                        $logo, 
+                        mime_content_type($filePath), 
+                        null, 
+                        true // This flag indicates the file is already moved to its final location
+                    );
+                    $maker = $maker->merge($logo->getPathName(), .4, true);
+                } 
             }
         }
 
