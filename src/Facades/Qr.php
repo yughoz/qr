@@ -41,6 +41,8 @@ class Qr extends Facade
             'eye_color_inner' => 'rgb(241, 148, 138)',
             'eye_color_outer' => 'rgb(69, 179, 157)',
             'eye_style' => 'square',
+            'correction' => 'H',
+            'percentage' => '.2',
         ];
     }
 
@@ -96,7 +98,6 @@ class Qr extends Facade
                                     '7' => '7',
                                     '9' => '9',
                                 ]),
-
 
                             ColorPicker::make('color')
                                 ->live()
@@ -160,7 +161,7 @@ class Qr extends Facade
                                 ])
                                 ->columnSpan(['sm' => 2])
                                 ->columns(['sm' => 2])
-                                ->visible(fn(Get $get) => $get('hasGradient')),
+                                ->visible(fn (Get $get) => $get('hasGradient')),
 
                             Toggle::make('hasEyeColor')
                                 ->live()
@@ -196,7 +197,7 @@ class Qr extends Facade
                                 ])
                                 ->columnSpan(['sm' => 2])
                                 ->columns(['sm' => 2])
-                                ->visible(fn(Get $get) => $get('hasEyeColor')),
+                                ->visible(fn (Get $get) => $get('hasEyeColor')),
 
 
 
@@ -211,7 +212,7 @@ class Qr extends Facade
                                 ->default(.2)
                                 ->label(__('Image Size'))
                                 ->reactive()
-                                ->visible(fn(Get $get) => $get('logo'))
+                                ->visible(fn (Get $get) => $get('logo'))
                                 ->selectablePlaceholder(false)
                                 ->columnSpan('full')
                                 ->options([
@@ -227,7 +228,7 @@ class Qr extends Facade
                         ->columns(['sm' => 2])
                         ->columnSpan(['sm' => 2, 'lg' => 1])
                         ->key('preview_placeholder')
-                        ->content(fn(Get $get) => Qr::render(
+                        ->content(fn (Get $get) => Qr::render(
                             data: $get($statePath),
                             options: $get($optionsStatePath),
                             statePath: $statePath,
@@ -241,7 +242,6 @@ class Qr extends Facade
     public static function output(?string $data = null, ?array $options = null): HtmlString
     {
         $maker = new Generator;
-        // $maker->errorCorrection('L');
         $size = 0.2;
 
         $options = $options ?? Qr::getDefaultOptions();
@@ -316,14 +316,14 @@ class Qr extends Facade
                 $filePath = storage_path('app/public/' . $logo);
 
                 if (file_exists($filePath)) {
-                    $logo = new UploadedFile(
-                        $filePath,
-                        $logo,
-                        mime_content_type($filePath),
-                        null,
-                        true // This flag indicates the file is already moved to its final location
-                    );
-                    $maker = $maker->merge($logo->getPathName(), $size, true);
+                    // $logo = new UploadedFile(
+                    //     $filePath,
+                    //     $logo,
+                    //     mime_content_type($filePath),
+                    //     null,
+                    //     true // This flag indicates the file is already moved to its final location
+                    // );
+                    $maker = $maker->merge($filePath, $size, true);
                 }
             }
         }
