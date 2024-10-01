@@ -199,8 +199,6 @@ class Qr extends Facade
                                 ->columns(['sm' => 2])
                                 ->visible(fn (Get $get) => $get('hasEyeColor')),
 
-
-
                             FileUpload::make('logo')
                                 ->live()
                                 ->imageEditor()
@@ -296,7 +294,6 @@ class Qr extends Facade
             $size = ($options['percentage']);
         }
 
-
         if (filled($options['style'])) {
             $maker = $maker->style($options['style']);
         }
@@ -308,7 +305,6 @@ class Qr extends Facade
         if (optional($options)['logo']) {
             reset($options['logo']);
             $logo = current($options['logo']);
-
 
             if ($logo instanceof \Illuminate\Http\UploadedFile && filled($logo->getPathName())) {
                 $maker = $maker->merge($logo->getPathName(), $size, true);
