@@ -120,3 +120,11 @@ Action::make('qr-action')
     ->form(\LaraZeus\Qr\Facades\Qr::getFormSchema('qr-data', 'qr-options'))
     ->action(fn($data) => dd($data)),
 ```
+
+### upload configuration:
+
+to customize the upload disk and directory pass the param:
+
+```php
+\LaraZeus\Qr\Facades\Qr::getFormSchema('qr-data', 'qr-options', uploadOptions: ['disk','/qr-code-logos'])
+```

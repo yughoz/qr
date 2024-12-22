@@ -10,6 +10,8 @@ use LaraZeus\Qr\Facades\Qr;
 
 class QrOptionsAction extends Action
 {
+    public array $uploadOptions = [];
+
     public string $parentState = 'url';
 
     public string $optionsColumn = 'options';
@@ -43,7 +45,11 @@ class QrOptionsAction extends Action
             ];
         });
 
-        $this->form(fn () => Qr::getFormSchema($this->getParentState(), $this->getOptionsColumn()));
+        $this->form(fn () => Qr::getFormSchema(
+            statePath: $this->getParentState(),
+            optionsStatePath: $this->getOptionsColumn(),
+            uploadOptions: $this->getUploadOptions()
+        ));
 
         $this->action(function (Set $set, $data) {
             $set($this->getParentState(), $data[$this->getParentState()]);
@@ -75,6 +81,21 @@ class QrOptionsAction extends Action
         $this->parentState = $url;
 
         return $this;
+    }
+
+    public function uploadOptions(string $disk = 'public', ?string $directory = null): static
+    {
+        $this->uploadOptions = [
+            'disk' => $disk,
+            'directory' => $directory,
+        ];
+
+        return $this;
+    }
+
+    public function getUploadOptions(): array
+    {
+        return $this->uploadOptions;
     }
 
     public function getParentState(): string

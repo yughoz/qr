@@ -12,10 +12,11 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Facade;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\HtmlString;
 use SimpleSoftwareIO\QrCode\Generator;
-use Illuminate\Http\UploadedFile;
 
 class Qr extends Facade
 {
@@ -43,6 +44,10 @@ class Qr extends Facade
             'eye_style' => 'square',
             'correction' => 'H',
             'percentage' => '.2',
+            'uploadOptions' => [
+                'disk' => 'public',
+                'directory' => null,
+            ],
         ];
     }
 
@@ -50,12 +55,13 @@ class Qr extends Facade
         string $statePath,
         string $optionsStatePath,
         ?string $defaultUrl = 'https://',
-        bool $showUrl = true
+        bool $showUrl = true,
+        array $uploadOptions = []
     ): array {
         return [
             TextInput::make($statePath)
                 ->live(onBlur: true)
-                ->formatStateUsing(fn($state) => $state ?? $defaultUrl)
+                ->formatStateUsing(fn ($state) => $state ?? $defaultUrl)
                 ->visible($showUrl),
 
             Grid::make()
@@ -203,13 +209,14 @@ class Qr extends Facade
                                 ->live()
                                 ->imageEditor()
                                 ->columnSpanFull()
+                                ->disk($uploadOptions['disk'] ?? 'public')
+                                ->directory($uploadOptions['directory'] ?? null)
                                 ->image(),
 
                             Select::make('percentage')
                                 ->live()
                                 ->default(.2)
                                 ->label(__('Image Size'))
-                                ->reactive()
                                 ->visible(fn (Get $get) => $get('logo'))
                                 ->selectablePlaceholder(false)
                                 ->columnSpan('full')
@@ -306,13 +313,16 @@ class Qr extends Facade
             reset($options['logo']);
             $logo = current($options['logo']);
 
-            if ($logo instanceof \Illuminate\Http\UploadedFile && filled($logo->getPathName())) {
+            if ($logo instanceof UploadedFile && filled($logo->getPathName())) {
                 $maker = $maker->merge($logo->getPathName(), $size, true);
             } else {
-                $filePath = storage_path('app/public/' . $logo);
-
-                if (file_exists($filePath)) {
-                    $maker = $maker->merge($filePath, $size, true);
+                $disk = optional($options)['uploadOptions']['disk'] ?? 'public';
+                if (Storage::disk($disk)->exists($logo)) {
+                    $maker = $maker->merge(
+                        Storage::disk($disk)->url($logo),
+                        $size,
+                        true
+                    );
                 }
             }
         }
